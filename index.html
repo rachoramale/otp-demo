@@ -1,68 +1,254 @@
-<!DOCTYPE html>
-<html>
+<!DOCTYPE html><html lang="en">
 <head>
-  <title>Agri Export Phone OTP</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Agriculture Export Management System</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, Helvetica, sans-serif;
+    }body {
+  background: #f4f7f6;
+  color: #333;
+}
 
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+header {
+  background: #2e7d32;
+  color: #fff;
+  padding: 20px;
+}
+
+header h1 {
+  text-align: center;
+}
+
+nav {
+  background: #1b5e20;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  padding: 10px;
+}
+
+nav a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+
+.container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.hero {
+  background: url('https://images.unsplash.com/photo-1501004318641-b39e6451bec6') center/cover no-repeat;
+  color: white;
+  padding: 80px 20px;
+  text-align: center;
+  border-radius: 10px;
+  margin-bottom: 30px;
+}
+
+.hero h2 {
+  font-size: 36px;
+  margin-bottom: 10px;
+}
+
+.hero p {
+  font-size: 18px;
+}
+
+.section {
+  margin-bottom: 30px;
+}
+
+.section h2 {
+  margin-bottom: 15px;
+  color: #2e7d32;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.card {
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.card h3 {
+  margin-bottom: 10px;
+  color: #1b5e20;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+table th, table td {
+  padding: 12px;
+  border-bottom: 1px solid #ddd;
+  text-align: center;
+}
+
+table th {
+  background: #2e7d32;
+  color: #fff;
+}
+
+form {
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 500px;
+}
+
+form label {
+  display: block;
+  margin: 10px 0 5px;
+}
+
+form input, form select, form textarea, form button {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+form button {
+  background: #2e7d32;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+form button:hover {
+  background: #1b5e20;
+}
+
+footer {
+  background: #1b5e20;
+  color: #fff;
+  text-align: center;
+  padding: 15px;
+  margin-top: 30px;
+}
+
+  </style>
 </head>
+<body>  <header>
+    <h1>Agriculture Export Management System</h1>
+  </header>  <nav>
+    <a href="#home">Home</a>
+    <a href="#services">Services</a>
+    <a href="#products">Products</a>
+    <a href="#export">Export Records</a>
+    <a href="#contact">Contact</a>
+  </nav>  <div class="container"><section id="home" class="hero">
+  <h2>Connecting Farmers to Global Markets</h2>
+  <p>Manage agricultural exports efficiently and transparently</p>
+</section>
 
-<body>
+<section id="services" class="section">
+  <h2>Our Services</h2>
+  <div class="cards">
+    <div class="card">
+      <h3>Farmer Registration</h3>
+      <p>Register farmers and manage their crop details.</p>
+    </div>
+    <div class="card">
+      <h3>Export Documentation</h3>
+      <p>Maintain export certificates and shipping documents.</p>
+    </div>
+    <div class="card">
+      <h3>Market Analysis</h3>
+      <p>Track international demand and pricing trends.</p>
+    </div>
+  </div>
+</section>
 
-<h2>Phone OTP Verification</h2>
+<section id="products" class="section">
+  <h2>Export Products</h2>
+  <table>
+    <tr>
+      <th>Product</th>
+      <th>Category</th>
+      <th>Quantity (MT)</th>
+      <th>Destination</th>
+    </tr>
+    <tr>
+      <td>Rice</td>
+      <td>Grains</td>
+      <td>120</td>
+      <td>UAE</td>
+    </tr>
+    <tr>
+      <td>Onion</td>
+      <td>Vegetables</td>
+      <td>80</td>
+      <td>Bangladesh</td>
+    </tr>
+    <tr>
+      <td>Mango</td>
+      <td>Fruits</td>
+      <td>50</td>
+      <td>UK</td>
+    </tr>
+  </table>
+</section>
 
-<input type="text" id="phone" placeholder="+91XXXXXXXXXX">
-<button onclick="sendOTP()">Get OTP</button>
+<section id="export" class="section">
+  <h2>Add Export Record</h2>
+  <form onsubmit="addRecord(event)">
+    <label>Product Name</label>
+    <input type="text" id="pname" required />
 
-<div id="recaptcha-container"></div>
+    <label>Category</label>
+    <select id="category">
+      <option>Grains</option>
+      <option>Fruits</option>
+      <option>Vegetables</option>
+    </select>
 
-<br><br>
+    <label>Quantity (MT)</label>
+    <input type="number" id="qty" required />
 
-<input type="text" id="otp" placeholder="Enter OTP">
-<button onclick="verifyOTP()">Verify OTP</button>
+    <label>Destination Country</label>
+    <input type="text" id="dest" required />
 
-<p id="msg"></p>
+    <button type="submit">Save Record</button>
+  </form>
+</section>
 
-<script>
-  const firebaseConfig = {
-    apiKey: "AIzaSyCI0E_iMD4JgujgODhj_jkEzHyk5fMw74g",
-    authDomain: "otp-web-37a4c.firebaseapp.com",
-    projectId: "otp-web-37a4c",
-    appId: "1:48604174432:web:2862f3a82e45480d38cb05"
-  };
+<section id="contact" class="section">
+  <h2>Contact Us</h2>
+  <p>Email: agri.export@example.com</p>
+  <p>Phone: +91 98765 43210</p>
+  <p>Address: Agriculture Export Office, India</p>
+</section>
 
-  firebase.initializeApp(firebaseConfig);
-  const auth = firebase.auth();
-
-  window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier(
-    'recaptcha-container',
-    { size: 'normal' }
-  );
-
-  function sendOTP() {
-    const phone = document.getElementById("phone").value;
-    auth.signInWithPhoneNumber(phone, window.recaptchaVerifier)
-      .then((confirmationResult) => {
-        window.confirmationResult = confirmationResult;
-        document.getElementById("msg").innerText = "OTP Sent ✅";
-      })
-      .catch((error) => {
-        document.getElementById("msg").innerText = error.message;
-      });
-  }
-
-  function verifyOTP() {
-    const otp = document.getElementById("otp").value;
-    window.confirmationResult.confirm(otp)
-      .then(() => {
-        document.getElementById("msg").innerText = "OTP Verified Successfully ✅";
-      })
-      .catch(() => {
-        document.getElementById("msg").innerText = "Invalid OTP ❌";
-      });
-  }
-</script>
-
-</body>
+  </div>  <footer>
+    <p>&copy; 2026 Agriculture Export Management System</p>
+  </footer>  <script>
+    function addRecord(event) {
+      event.preventDefault();
+      alert('Export record saved successfully!');
+      event.target.reset();
+    }
+  </script></body>
 </html>
